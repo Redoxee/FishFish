@@ -106,10 +106,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 881, y: 492}
-  m_MaxSize: {x: 18002, y: 14042}
+  m_MinSize: {x: 781, y: 492}
+  m_MaxSize: {x: 18006, y: 14042}
   vertical: 0
-  controlID: 3953
+  controlID: 135
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -130,10 +130,10 @@ MonoBehaviour:
     y: 0
     width: 1406
     height: 947
-  m_MinSize: {x: 606, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 506, y: 492}
+  m_MaxSize: {x: 14006, y: 14042}
   vertical: 1
-  controlID: 3896
+  controlID: 136
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -155,10 +155,10 @@ MonoBehaviour:
     y: 0
     width: 1406
     height: 671
-  m_MinSize: {x: 606, y: 221}
+  m_MinSize: {x: 506, y: 221}
   m_MaxSize: {x: 12006, y: 4021}
   vertical: 0
-  controlID: 3897
+  controlID: 83
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -202,15 +202,15 @@ MonoBehaviour:
     y: 0
     width: 786
     height: 671
-  m_MinSize: {x: 204, y: 221}
+  m_MinSize: {x: 104, y: 121}
   m_MaxSize: {x: 4004, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
   - {fileID: 20}
-  m_Selected: 1
+  m_Selected: 0
   m_LastSelected: 3
 --- !u!114 &10
 MonoBehaviour:
@@ -257,10 +257,10 @@ MonoBehaviour:
     y: 671
     width: 1406
     height: 276
-  m_MinSize: {x: 332, y: 271}
-  m_MaxSize: {x: 14002, y: 10021}
+  m_MinSize: {x: 336, y: 271}
+  m_MaxSize: {x: 14006, y: 10021}
   vertical: 0
-  controlID: 3862
+  controlID: 137
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -305,8 +305,8 @@ MonoBehaviour:
     y: 0
     width: 613
     height: 276
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 104, y: 121}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 23}
   m_Panes:
   - {fileID: 23}
@@ -444,7 +444,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 6ef1ffffa8f3ffff1afcffff00000000242600003c260000
+    m_ExpandedIDs: 8085ffff3886ffffc887ffff1afcffff00000000e4280000f4280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -491,7 +491,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 236
     y: 92
-    width: 655
+    width: 782
     height: 650
   m_ViewPositions:
     m_KeySerializationHelper: []
@@ -765,7 +765,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/Textures
   m_ViewMode: 0
   m_StartGridSize: 16
   m_LastFolders: []
@@ -776,7 +776,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 96}
     m_SelectedIDs: c0230000
     m_LastClickedID: 9152
-    m_ExpandedIDs: 0a26000010260000
+    m_ExpandedIDs: f626000016280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -804,7 +804,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0a26000010260000
+    m_ExpandedIDs: f62600001628000060290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -971,7 +971,7 @@ MonoBehaviour:
     y: 92
     width: 512
     height: 926
-  m_InitialOpenURL: https://public-cdn.cloud.unity3d.com/editor/production/cloud/analytics
+  m_InitialOpenURL: https://public-cdn.cloud.unity3d.com/editor/production/cloud/hub
   m_GlobalObjectTypeName: 
   m_RegisteredViewURLs:
   - https://public-cdn.cloud.unity3d.com/editor/production/cloud/hub
