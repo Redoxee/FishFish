@@ -29,13 +29,13 @@ public class GameProcess : MonoBehaviour {
     public const int nbControls = 3;
     public float m_minWait = 1.5f;
     public float m_maxWait = 6.0f;
-    float m_roundTimer = 0;
-    float[] m_startStamps = new float[nbControls];
-    int[] m_roundMaxScores = new int[] { 100, 100, 100 };
-    float[] m_animDuration = new float[] { 1.1f, 1.1f, 1.1f };
-    int[] m_roundCurrentScores = new int[] { 0, 0, 0 };
-    bool[] m_isTapped = new bool[] { false, false, false };
-    
+    private float m_roundTimer = 0;
+    private float[] m_startStamps = new float[nbControls];
+    private int[] m_roundMaxScores = new int[] { 100, 100, 100 };
+    private float[] m_animDuration = new float[] { 1.1f, 1.1f, 1.1f };
+    private int[] m_roundCurrentScores = new int[] { 0, 0, 0 };
+    private bool[] m_isTapped = new bool[] { false, false, false };
+    private int m_roundScore = 0;
     private bool m_hasCountDownStarted = true;
     
     private float m_roundDuration;
@@ -47,13 +47,15 @@ public class GameProcess : MonoBehaviour {
         for (int i = 0; i < m_startStamps.Length; ++i)
         {
             m_startStamps[i] = Random.Range(m_minWait, m_maxWait);
-            m_gui.m_scores[i].SetText(m_roundMaxScores[i].ToString());
+            m_gui.m_scores[i].text = (m_roundMaxScores[i].ToString());
             m_roundCurrentScores[i] = 0;
             m_isTapped[i] = false;
             m_roundDuration = Mathf.Max(m_roundDuration, m_startStamps[i] + m_animDuration[i]);
         }
 
         m_hasCountDownStarted = true;
+        m_roundScore = 0;
+        m_gui.m_roundScore.SetDisplay(0);
     }
 
     private void Update_Round()
@@ -75,7 +77,7 @@ public class GameProcess : MonoBehaviour {
                     {
                         float progression = Mathf.Clamp01((m_roundTimer - stamp) / m_animDuration[i]);
                         var points = Mathf.FloorToInt((1 - progression) * m_roundMaxScores[i]);
-                        m_gui.m_scores[i].SetText(points.ToString());
+                        m_gui.m_scores[i].text = (points.ToString());
                     }
                 }
             }
@@ -108,7 +110,9 @@ public class GameProcess : MonoBehaviour {
         {
             m_roundCurrentScores[index] = GetCurrentCatchPoint(index);
             m_isTapped[index] = true;
-            m_gui.m_scores[index].SetText(m_roundCurrentScores[index].ToString());
+            m_gui.m_scores[index].text = (m_roundCurrentScores[index].ToString());
+            m_roundScore += m_roundCurrentScores[index];
+            m_gui.m_roundScore.SetNumber(m_roundScore);
         }
     }
 

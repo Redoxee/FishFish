@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
-using TMPro;
+using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour {
-    public TMP_Text[] m_scores = new TMP_Text[3];
+    public Text[] m_scores = new Text[3];
+
+    public TextNumberAnimated m_roundScore = null;
 }
