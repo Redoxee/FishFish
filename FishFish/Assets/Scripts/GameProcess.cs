@@ -8,6 +8,9 @@ public class GameProcess : MonoBehaviour {
     [SerializeField]
     private GUIManager m_gui = null;
 
+    [SerializeField]
+    private Wakka[] m_wakkas;
+
     private void Start()
     {
         Ini_Session();
@@ -31,7 +34,7 @@ public class GameProcess : MonoBehaviour {
     public float m_maxWait = 6.0f;
     private float m_roundTimer = 0;
     private float[] m_startStamps = new float[nbControls];
-    private int[] m_roundMaxScores = new int[] { 100, 100, 100 };
+    private int[] m_roundMaxScores = new int[] { 200, 200, 200 };
     private float[] m_animDuration = new float[] { 1.1f, 1.1f, 1.1f };
     private int[] m_roundCurrentScores = new int[] { 0, 0, 0 };
     private bool[] m_isTapped = new bool[] { false, false, false };
@@ -51,6 +54,7 @@ public class GameProcess : MonoBehaviour {
             m_roundCurrentScores[i] = 0;
             m_isTapped[i] = false;
             m_roundDuration = Mathf.Max(m_roundDuration, m_startStamps[i] + m_animDuration[i]);
+            m_wakkas[i].SetState(Wakka.State.Waiting);
         }
 
         m_hasCountDownStarted = true;
@@ -71,7 +75,7 @@ public class GameProcess : MonoBehaviour {
                 {
                     if (prevTime < stamp)
                     {
-                        //Start Animation
+                        m_wakkas[i].StartFleeing(m_animDuration[i]);
                     }
                     if (!m_isTapped[i])
                     {
@@ -108,11 +112,23 @@ public class GameProcess : MonoBehaviour {
     {
         if (!m_isTapped[index])
         {
-            m_roundCurrentScores[index] = GetCurrentCatchPoint(index);
+            int pointsGain = GetCurrentCatchPoint(index);
+            m_roundCurrentScores[index] = pointsGain;
             m_isTapped[index] = true;
-            m_gui.m_scores[index].text = (m_roundCurrentScores[index].ToString());
-            m_roundScore += m_roundCurrentScores[index];
-            m_gui.m_roundScore.SetNumber(m_roundScore);
+            m_gui.m_scores[index].text = (pointsGain.ToString());
+            if (pointsGain > 0)
+            { 
+                m_roundScore += pointsGain;
+                m_gui.m_roundScore.SetNumber(m_roundScore);
+                m_wakkas[index].SetState(Wakka.State.Catched);
+            }
+            else
+            {
+                if (m_roundTimer < m_startStamps[index])
+                {
+                    m_wakkas[index].SetState(Wakka.State.Hidden);
+                }
+            }
         }
     }
 
