@@ -9,11 +9,11 @@ public class GameProcess : MonoBehaviour {
     private GUIManager m_gui = null;
 
     [SerializeField]
-    private Wakka[] m_wakkas;
+    private Wakka[] m_wakkas = null;
 
     private void Start()
     {
-        Ini_Session();
+        Init_Session();
         InitRound();
     }
 
@@ -56,8 +56,7 @@ public class GameProcess : MonoBehaviour {
             m_roundDuration = Mathf.Max(m_roundDuration, m_startStamps[i] + m_animDuration[i]);
             m_wakkas[i].SetState(Wakka.State.Waiting);
         }
-
-        m_hasCountDownStarted = true;
+        
         m_roundScore = 0;
         m_gui.m_roundScore.SetDisplay(0);
     }
@@ -73,12 +72,12 @@ public class GameProcess : MonoBehaviour {
                 float stamp = m_startStamps[i];
                 if (m_roundTimer >= stamp)
                 {
-                    if (prevTime < stamp)
-                    {
-                        m_wakkas[i].StartFleeing(m_animDuration[i]);
-                    }
                     if (!m_isTapped[i])
                     {
+                        if (prevTime < stamp)
+                        {
+                            m_wakkas[i].StartFleeing(m_animDuration[i]);
+                        }
                         float progression = Mathf.Clamp01((m_roundTimer - stamp) / m_animDuration[i]);
                         var points = Mathf.FloorToInt((1 - progression) * m_roundMaxScores[i]);
                         m_gui.m_scores[i].text = (points.ToString());
@@ -145,6 +144,10 @@ public class GameProcess : MonoBehaviour {
                 return false;
             }
         }
+        if (m_gui.m_roundScore.IsAnimating)
+        {
+            return false;
+        }
 
         return true;
     }
@@ -156,8 +159,9 @@ public class GameProcess : MonoBehaviour {
     private int m_nbRoundPerSession = 3;
     private int[] m_sessionScores;
     private int m_currentRound;
+    private int m_totalScore = 0;
 
-    private void Ini_Session()
+    private void Init_Session()
     {
         m_sessionScores = new int[m_nbRoundPerSession];
         for (int i = 0; i < m_nbRoundPerSession; ++i)
@@ -165,29 +169,46 @@ public class GameProcess : MonoBehaviour {
             m_sessionScores[i] = 0;
         }
         m_currentRound = 0;
+        m_totalScore = 0;
+        m_gui.InterRoundUI.Reset();
     }
 
     private void RoundEnd()
     {
         m_hasCountDownStarted = false;
-        int score = 0;
-        for (int i = 0; i < nbControls; ++i)
-        {
-            score += m_roundCurrentScores[i];
-        }
-        m_sessionScores[m_currentRound] = score;
-        if (m_currentRound < m_nbRoundPerSession)
-        {
-            m_currentRound += 1;
-        }
+        int prevTotal = m_totalScore;
+        m_sessionScores[m_currentRound] = m_roundScore;
+        m_totalScore += m_roundScore;
+        
+
+        m_gui.InterRoundUI.DisplayInterRound(m_currentRound,m_roundScore,prevTotal,m_totalScore, OnNextRoundRequested);
     }
-    
+
+    private void OnNextRoundRequested()
+    {
+
+        m_currentRound += 1;
+        if (m_currentRound >= m_nbRoundPerSession)
+        {
+            Init_Session();
+        }
+
+        InitRound();
+
+        m_gui.InterRoundUI.Hide(OnInterRoundAnimEnd);
+    }
+
+    private void OnInterRoundAnimEnd()
+    {
+        m_hasCountDownStarted = true;
+    }
 
     #endregion
 
     public void RestartButtonPressed()
     {
-        Ini_Session();
+        Init_Session();
         InitRound();
+        m_gui.InterRoundUI.Hide(OnInterRoundAnimEnd);
     }
 }

@@ -5,11 +5,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class TextNumberAnimated : MonoBehaviour {
     private Text m_text;
+    public Text Text { get { return m_text; } }
 
     private float m_currentNumber = 0;
     private int m_displayedNumber = 0;
     private int m_targetNumber = 0;
 
+    public bool IsAnimating { get { return m_displayedNumber != m_targetNumber; } }
     [SerializeField]
     private float m_speed = 15;
 
